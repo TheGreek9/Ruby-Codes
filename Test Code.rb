@@ -8,4 +8,4 @@ dealer_array[1] << 8
 
 dealer_flat = dealer_array.flatten
 
-print (dealer_flat)
+print (dealer_array)
