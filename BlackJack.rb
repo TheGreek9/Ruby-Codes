@@ -1,7 +1,7 @@
 player="h"
 p_pool = 100
 
-
+catch( :game ) do
 until player == "q"
   system("cls")
   player="h"
@@ -41,7 +41,9 @@ until player == "q"
 
   while (psum < 21 && player == "h" && p_pool > 0)
     print("\n\n\nPlace your bet:$")
-    p_bet = gets.chomp().to_i
+    p_bet = gets.chomp()
+    if p_bet == 'q' then throw :game end
+    p_bet = p_bet.to_i
     if p_bet < 0
       print ("Please enter positive number!")
       player = "h"
@@ -50,6 +52,7 @@ until player == "q"
       p_pool = p_pool - p_bet
       print("Enter 'h' if you would like to hit, or 's' if you would like to stay: ")
       player = gets().chomp.to_s
+      if player == 'q' then throw :game end
         if player != "h" && player != "s"
         print("Incorrect letter!")
         player = "h"
@@ -86,5 +89,6 @@ outcome = case
     puts("\nYou have no more money left\nGame Over")
     player = "q"
   end
-
 end
+end
+print ("Thanks for playing!")
