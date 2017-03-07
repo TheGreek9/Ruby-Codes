@@ -68,19 +68,17 @@ until player == "q"
     end
   end
 
-outcome = case
-  when dsum < psum && dsum < 21 && psum <= 21 || psum <= 21 && dsum > 21 then
+  if dsum < psum && dsum < 21 && psum <= 21 || psum <= 21 && dsum > 21
     puts ("\nCongratulations, you win!")
     p_pool = p_pool + (2*t_bet)
-  when psum < dsum && dsum <= 21 && psum < 21 || psum > 21 && dsum <= 21 then
+  elsif psum < dsum && dsum <= 21 && psum < 21 || psum > 21 && dsum <= 21
     puts("\nI'm sorry, you lose")
-  when psum > 21 && dsum > 21 then
+  elsif psum > 21 && dsum > 21
     puts("\nNo Winner")
-  when psum == dsum then
+  else psum == dsum
     puts("\nIt's a tie!")
     p_pool = p_pool + t_bet
   end
-  puts ( outcome )
 
   print("Would you like to play again? ('y' = yes, 'q' = no)")
   player = gets.chomp()
