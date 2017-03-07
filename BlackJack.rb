@@ -25,7 +25,7 @@ until player == "q"
     dsum = dealer_flat.inject(0){|sum,x| sum + x }
   end
 
-  puts("\nThis is the game of Blackjack!")
+  puts("\nThis is the game of Blackjack!\n(Enter 'q' at anytime to quit the game)")
   puts("\nDealers face up cards: ")
     dealer_array[1].each do |x|
       print("#{x} ")
