@@ -1,8 +1,8 @@
-player="h"
+player="h" #enter into the loop and add $100 to the players pool
 p_pool = 100
 
-catch( :game ) do
-until player == "q"
+catch( :game ) do #use catch to allow the game to exit when player enters 'q'
+until player == "n"
   system("cls")
   player="h"
   dealer = "h"
@@ -42,21 +42,28 @@ until player == "q"
   while (psum < 21 && player == "h" && p_pool > 0)
     print("\n\n\nPlace your bet:$")
     p_bet = gets.chomp()
-    if p_bet == 'q' then throw :game end
+    if p_bet == 'q' then throw :game
+    elsif p_bet.match(/^[[:alpha:]]$/)
+      print("Please enter a positive integer!")
+      next
+    end
     p_bet = p_bet.to_i
     if p_bet < 0
       print ("Please enter positive number!")
-      player = "h"
+      next
+    elsif (p_pool - p_bet) < 0
+      print("Can't bet more than your pool")
+      next
     else
       t_bet = t_bet + p_bet
       p_pool = p_pool - p_bet
-      print("Enter 'h' if you would like to hit, or 's' if you would like to stay: ")
-      player = gets().chomp.to_s
-      if player == 'q' then throw :game end
-        if player != "h" && player != "s"
-        print("Incorrect letter!")
-        player = "h"
-        elsif player == "h"
+      loop do
+        print("Enter 'h' if you would like to hit, or 's' if you would like to stay: ")
+        player = gets().chomp.to_s
+        if player == 'q' then throw :game end
+        break if player == 'h' || player == 's'
+      end
+        if player == "h"
         player_array << (1 + Random.rand(10))
         print("Your cards: ")
           player_array.each do |x|
@@ -80,14 +87,16 @@ until player == "q"
     p_pool = p_pool + t_bet
   end
 
-  print("Would you like to play again? ('y' = yes, 'q' = no)")
-  player = gets.chomp()
+  loop do
+    print("Would you like to play again? ('y' = yes, 'n' = no)")
+    player = gets.chomp()
+    break if player =='y' || player == 'n'
+  end
 
   if p_pool <= 0
     puts("\nYou have no more money left\nGame Over")
-    player = "q"
+    player = "n"
   end
 end
 end
 print ("Thanks for playing!")
-gets.chomp()
