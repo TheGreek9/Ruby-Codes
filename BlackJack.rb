@@ -90,3 +90,4 @@ until player == "q"
 end
 end
 print ("Thanks for playing!")
+gets.chomp()
